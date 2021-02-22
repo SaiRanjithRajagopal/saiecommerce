@@ -3,6 +3,13 @@ const cors = require('cors');
 const colors = require('colors');
 const donEnvConfig = require('dotenv');
 
+//Console.log(a); -- a is undefined; Javascript error
+process.on('uncaughtException', err => {
+    console.log(`ERROR: ${err.stack}`);
+    console.log(`Shutting down due to Uncaught Exception`.red.bold);
+    process.exit(1);
+})
+
 //Import MiddleWare
 const errorMiddleWare = require('./VersionOne/Middleware/errors')
 
@@ -30,10 +37,18 @@ app.use('/api/v1/', productRoutes);
 
 app.use(errorMiddleWare);
 
-
 //Runs the node js using express.js
 const server = app.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.green.toUpperCase().bold);
 });
+
+//Capture Unhandle Promise Rejection
+process.on('unhandledRejection', err => {
+    console.log(`ERROR: ${err.message}`);
+    console.log(`Shutting down the server due to Unhandle Promise rejection`.red.bold);
+    server.close(() => {
+        process.exit(1);
+    })
+})
 
 
