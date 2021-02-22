@@ -3,6 +3,9 @@ const cors = require('cors');
 const colors = require('colors');
 const donEnvConfig = require('dotenv');
 
+//Import MiddleWare
+const errorMiddleWare = require('./VersionOne/Middleware/errors')
+
 //Import all files
 const ConnecToDB = require('../server/Config/connectDatabase')
 const productRoutes = require('../server/VersionOne/Routes/ProductRouter')
@@ -22,7 +25,11 @@ app.use(cors());
 //Connecting to Database
 ConnecToDB();
 
+//redirect to routes
 app.use('/api/v1/', productRoutes);
+
+app.use(errorMiddleWare);
+
 
 //Runs the node js using express.js
 const server = app.listen(PORT, () => {
