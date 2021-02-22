@@ -1,12 +1,14 @@
 {
   "name": "saiecommerceapp",
   "version": "1.0.1",
-  "description": "",
+  "description": "full ecommerce site using node",
   "main": "VoidMain.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server/VoidMain.js",
+    "dev" : "SET NODE_ENV=DEVELOPMENT& nodemon server/VoidMain",
+    "prod": "SET NODE_ENV=PRODUCTION& nodemon server/VoidMain"
   },
-  "author": "",
+  "author": "Ranjith Rajagopal",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
