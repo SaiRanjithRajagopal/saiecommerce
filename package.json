@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server/VoidMain.js",
     "dev" : "SET NODE_ENV=DEVELOPMENT& nodemon server/VoidMain",
-    "prod": "SET NODE_ENV=PRODUCTION& nodemon server/VoidMain"
+    "prod": "SET NODE_ENV=PRODUCTION& nodemon server/VoidMain",
+    "seeder": "node server/utils/seeder.js"
   },
   "author": "Ranjith Rajagopal",
   "license": "ISC",
