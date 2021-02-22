@@ -16,3 +16,18 @@ exports.getProducts = async (req, res, next) => {
         products
     })
 }
+
+exports.getSingleProduct = async (req, res, next) => {
+    console.log(req.params.Id);
+    const product = await Product.findById(req.params.Id);
+    if (!product) {
+        return res.status(404).json({
+            success: false,
+            message: 'Product not found'
+        });
+    }
+    res.status(200).json({
+        success: true,
+        product
+    });
+}
