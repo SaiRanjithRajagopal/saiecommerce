@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const userSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please enter your name'],
-        maxLength: [500, 'your name cannot exceed 500 characters']
+        maxlength: [500, 'your name cannot exceed 500 characters']
     },
     email: {
         type: String,
@@ -16,6 +18,7 @@ const userSchema = new mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Your password must be longer than 6 characters'],
+        minlength: 6,
         select: false
     },
     avatar: {
@@ -40,4 +43,19 @@ const userSchema = new mongoose.Schema({
     resetPasswordExpire: Date
 });
 
-module.exports = mongoose.model('product', productSchema);
+//Encrypt the password before Save
+userSchema.pre('save', async function (next) {
+    if (!this.isModified('password')) {
+        next();
+    }
+    this.password = await bcrypt.hash(this.password, 10);
+});
+
+//Return JWT token
+userSchema.methods.getJwtToken = function () {
+    return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES_TIME
+    });
+}
+
+module.exports = mongoose.model('user', userSchema);
