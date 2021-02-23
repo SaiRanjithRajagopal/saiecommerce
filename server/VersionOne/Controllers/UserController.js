@@ -3,6 +3,7 @@ const User = require('../Models/user');
 const errorHandler = require('../../Utils/errorHandler');
 const catchAsyncError = require('../Middleware/asyncErrorMiddleware');
 const ErrorHandler = require('../../Utils/errorHandler');
+const sendToken = require('../../Utils/JWTCookieToken');
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
@@ -15,8 +16,7 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
             url: 'https://res.cloudinary.com/shopit/image/upload/v1606305757/avatars/kccvibpsuiusmwfepb3m.png'
         }
     });
-    const token = user.getJwtToken();
-    res.status(201).json({ "success": true, token })
+    sendToken(user, 200, res);
 });
 
 
@@ -45,5 +45,5 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
 
     const token = user.getJwtToken();
 
-    res.status(200).json({ "success": true, token })
+    sendToken(user, 200, res);
 });
