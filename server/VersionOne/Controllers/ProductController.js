@@ -13,10 +13,11 @@ exports.newProduct = asyncErrorHandler(async (req, res, next) => {
 
 exports.getProducts = asyncErrorHandler(async (req, res, next) => {
 
-    const apiFeatures = new APIFeatures(Product.find(), req.query).search();
+    const apiFeatures = new APIFeatures(Product.find(), req.query).search().filter();
 
     //TODO  Ranj - Find how this (. query) is working...need to investigate more - Javascript Magic
     const products = await apiFeatures.query;
+    console.log(products);
     res.status(200).json({
         'success': true,
         count: products.length,

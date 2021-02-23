@@ -1,3 +1,7 @@
+//TODO Two things i have learn on this class
+//TODO Learn MonogoDB quering
+//TODO Learn Javascript weird oops concept specially this syntax
+
 class APIFeatures {
     constructor(query, queryStr) {
         this.query = query;
@@ -15,7 +19,7 @@ class APIFeatures {
                 $options: 'i'
             }
         } : {}
-
+        console.log(keyword);
         this.query = this.query.find({ ...keyword });
         return this;
     }
@@ -40,6 +44,8 @@ class APIFeatures {
         return this;
         //TODO undestand what is this will do in javascript
     }
+
+
 }
 
 module.exports = APIFeatures;
