@@ -1,6 +1,7 @@
 const Product = require('../Models/products');
 const ErrorHandler = require('../../Utils/errorHandler');
 const asyncErrorHandler = require('../Middleware/asyncErrorMiddleware');
+const APIFeatures = require('../../Utils/APIFeatures');
 
 exports.newProduct = asyncErrorHandler(async (req, res, next) => {
     const product = await Product.create(req.body);
@@ -11,7 +12,11 @@ exports.newProduct = asyncErrorHandler(async (req, res, next) => {
 });
 
 exports.getProducts = asyncErrorHandler(async (req, res, next) => {
-    const products = await Product.find();
+
+    const apiFeatures = new APIFeatures(Product.find(), req.query).search();
+
+    //TODO  Ranj - Find how this (. query) is working...need to investigate more - Javascript Magic
+    const products = await apiFeatures.query;
     res.status(200).json({
         'success': true,
         count: products.length,

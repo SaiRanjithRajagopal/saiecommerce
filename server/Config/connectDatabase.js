@@ -6,7 +6,7 @@ const connectDatabase = () => {
         useUnifiedTopology: true,
         useCreateIndex: true
     }).then(connectionResult => {
-        console.log(`MongoDB Database Connected with Host: ${connectionResult.connection.host}`.green.bold);
+        console.log(`MongoDB Database Connected with Host: ${connectionResult.connection.host}`);
     })
 };
 

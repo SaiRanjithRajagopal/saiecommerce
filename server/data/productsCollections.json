@@ -1,22 +1,37 @@
 [
-    {
-    "name" : "Sandisk Ultra",
-    "price": "45.89",
-    "description": "Incredibly Fast: USB 3.1 High Speed-Up to 90MB/s reading speed,writing speed is 20MB/s to 35MB/s. These flash drives are faster than usb 2.0.",
-    "ratings": 4.5,
+{
+        "name" : "Sandisk Ultra",
+        "price": "25.89",
+        "description": "Incredibly Fast: USB 3.1 High Speed-Up to 90MB/s reading speed,writing speed is 20MB/s to 35MB/s. These flash drives are faster than usb 2.0.",
+        "ratings": 1.5,
+        "images" : [{
+            "public_id" : "products/tzfsnrli3szrdnb4jgge",
+            "url": "https://canary.contestimg.wish.com/api/webimage/5e01a1172de53551d5c836a6-large.jpg?cache_buster=9eb62dc4fa3f64555e2baecdb144d50d"
+        }],
+        "category": "Electronics",
+        "seller": "Amazon",
+        "stock":"50",
+        "numberOfReviews": 32,
+        "reviews": []
+},
+{
+    "name" : "Sandisk Ultra 32GB Bronze",
+    "price": "65.25",
+    "description": "Immersive sound – 5 speakers produce powerful bass, dynamic midrange, and crisp highs. Dolby Atmos technology adds space, clarity, and depth.",
+    "ratings": 3.0,
     "images" : [{
         "public_id" : "products/tzfsnrli3szrdnb4jgge",
         "url": "https://canary.contestimg.wish.com/api/webimage/5e01a1172de53551d5c836a6-large.jpg?cache_buster=9eb62dc4fa3f64555e2baecdb144d50d"
     }],
     "category": "Electronics",
-    "seller": "Amazon",
+    "seller": "Ebay",
     "stock":"50",
     "numberOfReviews": 32,
     "reviews": []
 },
 {
-    "name" : "Echo Studio - High-fidelity smart speaker with 3D audio and Alexa",
-    "price": "75.25",
+    "name" : "Sandisk Ultra 60GB Premium",
+    "price": "90.25",
     "description": "Immersive sound – 5 speakers produce powerful bass, dynamic midrange, and crisp highs. Dolby Atmos technology adds space, clarity, and depth.",
     "ratings": 4.5,
     "images" : [{
@@ -24,7 +39,7 @@
         "url": "https://canary.contestimg.wish.com/api/webimage/5e01a1172de53551d5c836a6-large.jpg?cache_buster=9eb62dc4fa3f64555e2baecdb144d50d"
     }],
     "category": "Electronics",
-    "seller": "Amazon",
+    "seller": "Ebay",
     "stock":"50",
     "numberOfReviews": 32,
     "reviews": []
@@ -39,7 +54,7 @@
         "url": "https://canary.contestimg.wish.com/api/webimage/5e01a1172de53551d5c836a6-large.jpg?cache_buster=9eb62dc4fa3f64555e2baecdb144d50d"
     }],
     "category": "Electronics",
-    "seller": "Amazon",
+    "seller": "Canadian Tire",
     "stock":"50",
     "numberOfReviews": 32,
     "reviews": []
