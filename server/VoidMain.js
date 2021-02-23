@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const colors = require('colors');
 const donEnvConfig = require('dotenv');
+const cookieParser = require('cookie-parser');
 
 //Console.log(a); -- a is undefined; Javascript error
 process.on('uncaughtException', err => {
@@ -20,15 +21,16 @@ const userRoutes = require('../server/VersionOne/Routes/UserRouter')
 
 // Load env variables
 donEnvConfig.config({ path: 'server/Config/config.env' })
+const PORT = process.env.PORT || 5000;
 
 //Define the Express
 const app = express();
-const PORT = process.env.PORT || 5000;
 
 // Body parser. This will help to parse the JSON request attached from the client.Also this will help to find the attached parameters from the request
 app.use(express.json());
 // Enable CORS - This will help to avoid the exception thrown at the browser. Client runs on the different port and server is hosted on different port. Because of the different port, browser will consider that it will is not a safe request. cors will
 app.use(cors());
+app.use(cookieParser());
 
 //Connecting to Database
 ConnecToDB();

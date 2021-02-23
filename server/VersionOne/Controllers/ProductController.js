@@ -3,6 +3,7 @@ const ErrorHandler = require('../../Utils/errorHandler');
 const asyncErrorHandler = require('../Middleware/asyncErrorMiddleware');
 const APIFeatures = require('../../Utils/APIFeatures');
 
+
 exports.newProduct = asyncErrorHandler(async (req, res, next) => {
     const product = await Product.create(req.body);
     res.status(201).json({
