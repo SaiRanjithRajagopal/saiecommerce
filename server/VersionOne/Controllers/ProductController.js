@@ -13,14 +13,20 @@ exports.newProduct = asyncErrorHandler(async (req, res, next) => {
 
 exports.getProducts = asyncErrorHandler(async (req, res, next) => {
 
-    const apiFeatures = new APIFeatures(Product.find(), req.query).search().filter();
+    const resultsPerPage = 4;
+    const totalProductCount = await Product.countDocuments();
+    const apiFeatures = new APIFeatures(Product.find(), req.query)
+        .search()
+        .filter()
+        .pagination(resultsPerPage);
 
     //TODO  Ranj - Find how this (. query) is working...need to investigate more - Javascript Magic
     const products = await apiFeatures.query;
-    console.log(products);
+    //console.log(products);
     res.status(200).json({
         'success': true,
         count: products.length,
+        totalProductCount,
         products
     });
 });
