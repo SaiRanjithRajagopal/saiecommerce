@@ -4,6 +4,8 @@ const errorHandler = require('../../Utils/errorHandler');
 const catchAsyncError = require('../Middleware/asyncErrorMiddleware');
 const ErrorHandler = require('../../Utils/errorHandler');
 const sendToken = require('../../Utils/JWTCookieToken');
+const sendEmail = require('../../Utils/sendEmail');
+const crypto = require('crypto');
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
     const { name, email, password } = req.body;
@@ -81,10 +83,10 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     //req.protocol is nothing but http or https
-    const resetURL = `${req.protocol}://${req.get(`host`)}/api/${process.env.API_VERSION}/password/reset/${resetToken}`;
+    const resetURL = `${req.protocol}://${req.get(`host`)}/api/${process.env.API_VERSION}/user/resetPassword/${resetToken}`;
     console.log(resetURL);
 
-    const message = `Your password reset token is as follow:\n\n${resetUrl}\n\nIf you have not requested this email, then ignore it`;
+    const message = `Your password reset token is as follow:\n\n${resetURL}\n\nIf you have not requested this email, then ignore it`;
 
     try {
         await sendEmail({
@@ -105,4 +107,42 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 
         return next(new ErrorHandler(error.message), 500);
     }
+});
+
+exports.resetPassword = catchAsyncError(async (req, res, next) => {
+    //Hash URL Token
+    const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+    const user = await User.findOne({
+        resetPasswordToken,
+        resetPasswordExpire: { $gt: Date.now() }
+    });
+
+    if (!user) {
+        return next(new ErrorHandler(`Password reset token is invalid or has been expired`), 400)
+    }
+
+    //Macth Pasword
+    if (req.body.password !== req.body.confirmPassword) {
+        return next(new ErrorHandler(`Password does not match`, 400))
+    }
+
+    //Setup new password
+    user.password = req.body.password;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpire = undefined;
+
+    await user.save();
+
+    //This will attach the Token and add cookie expiry time in the header
+    //sendToken(user, 200, res);
+    res.cookie('token', null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    });
+
+    res.status(200).json({
+        success: true,
+        message: 'Your Password is successfully updated, Please login with your new password'
+    });
+
 });
