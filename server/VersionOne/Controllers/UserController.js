@@ -62,3 +62,47 @@ exports.logout = catchAsyncError(async (req, res, next) => {
 });
 
 //Forgot Password
+exports.forgotPassword = catchAsyncError(async (req, res, next) => {
+
+    const user = await User.findOne({ email: req.body.email });
+
+    //If user not found return 401 error
+    if (!user) {
+        return next(new ErrorHandler('User not found with this email', 401));
+    }
+
+    //Get reset token
+    //TODO notice we are adding any information to the users schema but the inforamtion is saved
+    //TODO This is because getResetPasswordToken will reset the password and it is saved on the user schema
+    //TODO  this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+    //TODO  this.resetPasswordExpire = Date.now() + 30 * 60 * 1000;
+    const resetToken = user.getResetPasswordToken();
+
+    await user.save({ validateBeforeSave: false });
+
+    //req.protocol is nothing but http or https
+    const resetURL = `${req.protocol}://${req.get(`host`)}/api/${process.env.API_VERSION}/password/reset/${resetToken}`;
+    console.log(resetURL);
+
+    const message = `Your password reset token is as follow:\n\n${resetUrl}\n\nIf you have not requested this email, then ignore it`;
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: 'Ecommerce Password Recovery',
+            message
+        });
+
+        res.status(200).json({
+            success: true,
+            message: `Email sent to: ${user.email}`
+        });
+
+    } catch (error) {
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpire = undefined;
+        await user.save({ validateBeforeSave: false });
+
+        return next(new ErrorHandler(error.message), 500);
+    }
+});
