@@ -191,12 +191,12 @@ exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
     const newUserData = {
         name: req.body.name,
         email: req.body.email
-    }
+    };
 
     //Update Avatar: TODO
 
     //TODO Ranjith Need to understand update options in mongodb  new: true,runValidators: true,useFindAndModify: false
-    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    const user = await User.findByIdAndUpdate(req.user.id, req.body, {
         new: true,
         runValidators: true,
         useFindAndModify: false
@@ -205,4 +205,22 @@ exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
     res.status(200).json({
         "success": true
     });
+});
+
+//Admin Routes
+//Get all the users
+exports.allUsers = catchAsyncError(async (req, res, next) => {
+    const users = await User.find();
+    res.status(200).json({
+        "success": true,
+        users
+    });
+});
+
+exports.getUserDetails = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+if(!user)
+{
+    return next(new ErrorHandler('User does not found with id: $'))
+}
 });
