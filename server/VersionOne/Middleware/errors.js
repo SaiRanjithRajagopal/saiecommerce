@@ -30,9 +30,15 @@ module.exports = (err, req, res, next) => {
             error = new ErrorHandler(message, 400);
         }
 
-        //Handling duplicate Value in monogoDB
+        //Handling Wrong JWT Error
         if (err.name === 'JsonwebTokenError') {
             const message = `JSON Web Token is invalid. Please Try Again !`;
+            error = new ErrorHandler(message, 400);
+        }
+
+        //Handling JWT Expired
+        if (err.name === 'TokenExpiresError') {
+            const message = `JSON Web Token is expires. Please Try Again !`;
             error = new ErrorHandler(message, 400);
         }
 
