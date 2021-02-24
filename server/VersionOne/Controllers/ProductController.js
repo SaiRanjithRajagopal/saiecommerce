@@ -5,6 +5,11 @@ const APIFeatures = require('../../Utils/APIFeatures');
 
 
 exports.newProduct = asyncErrorHandler(async (req, res, next) => {
+    //TODO Ranjith Adding the User id for the products
+    //TODO Ranjith good thing is figure it out how monogdb finds only the product object and save to database
+    //TODO Ranjith This request may have multiple objects like users:{...}, products:{....}
+    req.body.user = req.user.id;
+    console.log(req.body)
     const product = await Product.create(req.body);
     res.status(201).json({
         success: true,

@@ -15,3 +15,13 @@ exports.isAuthenticatedUser = asyncErrorHandler(async (req, res, next) => {
     next();
 });
 
+//Hanlding User Roles
+exports.authorizedRoles = (...roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            //TODO Ranji How does the return next middle ware is working ? Find it out
+            return next(new ErrorHandler(`Role (${req.user.role}) is not allowed to access this resource`, 403));
+        }
+        next();
+    }
+}

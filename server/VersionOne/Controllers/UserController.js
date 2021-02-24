@@ -60,3 +60,5 @@ exports.logout = catchAsyncError(async (req, res, next) => {
         message: 'User successfully logged out'
     });
 });
+
+//Forgot Password

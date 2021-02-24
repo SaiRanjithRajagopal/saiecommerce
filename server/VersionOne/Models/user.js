@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
 
 const userSchema = new mongoose.Schema({
     name: {
@@ -39,7 +40,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    resetPasswrodToken: String,
+    resetPasswordToken: String,
     resetPasswordExpire: Date
 });
 
@@ -61,6 +62,21 @@ userSchema.methods.getJwtToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
         expiresIn: process.env.JWT_EXPIRES_TIME
     });
+}
+
+//Generate Password reset token
+userSchema.methods.getResetPasswordToken = function () {
+    //Genearte Token
+    const resetToken = crypto.randomBytes(20).toString('hex');
+
+    // We should encrypt the token, it not good practise to send without encryption
+    // TODO Very important
+    this.resetPasswordToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+
+    //Set token expired time
+    this.resetPasswordExpire = Date.now() + 30 * 60 * 1000;
+
+    return resetToken;
 }
 
 module.exports = mongoose.model('user', userSchema);
