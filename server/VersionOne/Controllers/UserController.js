@@ -248,3 +248,19 @@ exports.updateUserProfile_Roles_ByAdmin = catchAsyncError(async (req, res, next)
         "success": true
     });
 });
+
+//Delete user
+exports.deleteUser = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        return next(new ErrorHandler(`User does not found with id: ${req.params.id}`))
+    }
+
+    //Remove avatar from cloudinary server
+
+    await user.remove();
+    res.status(200).json({
+        success: true,
+        message: "User successfully deleted"
+    })
+});
