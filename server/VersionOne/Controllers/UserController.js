@@ -196,7 +196,7 @@ exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
     //Update Avatar: TODO
 
     //TODO Ranjith Need to understand update options in mongodb  new: true,runValidators: true,useFindAndModify: false
-    const user = await User.findByIdAndUpdate(req.user.id, req.body, {
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
         new: true,
         runValidators: true,
         useFindAndModify: false
@@ -226,4 +226,25 @@ exports.getUserDetails = catchAsyncError(async (req, res, next) => {
         success: true,
         user
     })
+});
+
+//Get Currently Logged in users
+exports.updateUserProfile_Roles_ByAdmin = catchAsyncError(async (req, res, next) => {
+    console.log('sai');
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role || 'user'
+    };
+
+    //TODO Ranjith Need to understand update options in mongodb  new: true,runValidators: true,useFindAndModify: false
+    const user = await User.findByIdAndUpdate(req.params.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
+
+    res.status(200).json({
+        "success": true
+    });
 });
