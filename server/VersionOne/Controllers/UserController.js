@@ -135,6 +135,8 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
     //This will attach the Token and add cookie expiry time in the header
     //sendToken(user, 200, res);
+
+    //I want to remove the existing token and i want user to login with the new password
     res.cookie('token', null, {
         expires: new Date(Date.now()),
         httpOnly: true
@@ -144,5 +146,63 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
         success: true,
         message: 'Your Password is successfully updated, Please login with your new password'
     });
+});
 
+
+//Get Currently Logged in users
+exports.getUserProfile = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+    res.status(200).json({
+        success: true,
+        user
+    })
+});
+
+//Get Currently Logged in users
+exports.updatePassword = catchAsyncError(async (req, res, next) => {
+    const user = await User.findById(req.user.id).select('+password');
+
+    //Check previous user password
+    const isMatched = await user.ComparePassword(req.body.oldpassword);
+    if (!isMatched) {
+        return next(new ErrorHandler('Old password is incorrect'));
+    }
+
+    user.password = req.body.password;
+    await user.save();
+
+    //This will attach the Token and add cookie expiry time in the header
+    //sendToken(user, 200, res);
+
+    //I want to remove the existing token and i want user to login with the new password
+    res.cookie('token', null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    });
+
+    res.status(200).json({
+        success: true,
+        message: 'Your Password is successfully updated, Please login with your new password'
+    });
+});
+
+//Get Currently Logged in users
+exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email
+    }
+
+    //Update Avatar: TODO
+
+    //TODO Ranjith Need to understand update options in mongodb  new: true,runValidators: true,useFindAndModify: false
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
+
+    res.status(200).json({
+        "success": true
+    });
 });
