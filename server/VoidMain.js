@@ -19,6 +19,7 @@ const ConnecToDB = require('../server/Config/connectDatabase')
 const productRoutes = require('../server/VersionOne/Routes/ProductRouter')
 const userRoutes = require('../server/VersionOne/Routes/UserRouter')
 const orderRoutes = require('../server/VersionOne/Routes/OrderRouter')
+const prodcutReviews = require('../server/VersionOne/Routes/ProductReviewsRouter')
 
 // Load env variables
 donEnvConfig.config({ path: 'server/Config/config.env' })
@@ -40,6 +41,7 @@ ConnecToDB();
 app.use('/api/v1/', productRoutes);
 app.use('/api/v1/', userRoutes);
 app.use('/api/v1/', orderRoutes);
+app.use('/api/v1/', prodcutReviews);
 
 app.use(errorMiddleWare);
 

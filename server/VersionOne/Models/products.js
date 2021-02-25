@@ -17,10 +17,6 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Please enter product description']
     },
-    ratings: {
-        type: Number,
-        default: 0
-    },
     images: [{
         public_id: {
             type: String,
@@ -48,6 +44,10 @@ const productSchema = new mongoose.Schema({
         required: [true, 'Product stock cannot greater than 5 digits'],
         default: 0
     },
+    ratings: {
+        type: Number,
+        default: 0
+    },
     numofReviews: {
         type: Number,
         default: 0
@@ -56,12 +56,18 @@ const productSchema = new mongoose.Schema({
         name: {
             type: String,
             required: true
-        }, ratings: {
+        },
+        ratings: {
             type: Number,
             required: true
         },
         comment: {
             type: String,
+            required: true
+        },
+        user: {
+            type: mongoose.Schema.ObjectId,
+            ref: 'User',
             required: true
         }
     }],
