@@ -28,7 +28,7 @@ const orderSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    country: [{
+    orderItems: [{
         name: {
             type: String,
             required: true
