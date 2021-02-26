@@ -1,13 +1,13 @@
-import './layouts/MasterPage/MasterPage';
+import MasterPage from './layouts/Master/MasterPage';
 
-function App() {
+function VoidMain() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Sai ECommerce Application</h1>
+    <div>
+      <header>
+        <MasterPage />
       </header>
     </div>
   );
 }
 
-export default App;
+export default VoidMain;

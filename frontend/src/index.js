@@ -4,7 +4,7 @@ import VoidMain from './components/VoidMain';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <VoidMain />
   </React.StrictMode>,
   document.getElementById('root')
 );
