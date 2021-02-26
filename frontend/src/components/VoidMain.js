@@ -1,4 +1,4 @@
-import MasterPage from './layouts/Master/MasterPage';
+import MasterPage from './Master/MasterPage';
 
 function VoidMain() {
   return (

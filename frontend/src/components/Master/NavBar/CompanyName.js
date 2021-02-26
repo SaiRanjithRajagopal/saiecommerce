@@ -1,11 +1,12 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const companyname = () => {
     return (
         <React.Fragment>
-            <a className="navbar-brand" href="index.html">
-                <span>Minics</span>
-            </a>
+            <Link className="navbar-brand" to="/">
+                <Link to="/" className="nav-link"><span>Minics</span></Link>
+            </Link>
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className=""> </span>
             </button>

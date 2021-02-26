@@ -1,17 +1,18 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const contact = () => {
     return (
         <React.Fragment>
             <div className="contact_nav">
-                <a href="">
+                <Link to="/">
                     <i className="fa fa-phone" aria-hidden="true"></i>
                     <span>Call : +01 123455678990</span>
-                </a>
-                <a href="">
+                </Link>
+                <Link to="/">
                     <i className="fa fa-envelope" aria-hidden="true"></i>
                     <span>Email : demo@gmail.com</span>
-                </a>
+                </Link>
             </div>
         </React.Fragment>
     )
