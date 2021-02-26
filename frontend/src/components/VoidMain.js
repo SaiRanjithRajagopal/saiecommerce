@@ -1,4 +1,4 @@
-import './App.css';
+import './layouts/MasterPage/MasterPage';
 
 function App() {
   return (
