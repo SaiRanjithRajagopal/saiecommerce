@@ -14,7 +14,7 @@ const AboutPage = () => {
                                 </div>
                                 <p>Totam architecto rem beatae veniam, cum officiis adipisci soluta perspiciatis ipsa, expedita maiores quae accusantium. Animi veniam aperiam, necessitatibus mollitia ipsum id optio ipsa odio ab facilis sit labore officia!
                                     Repellat expedita, deserunt eum soluta rem culpa. Aut, necessitatibus cumque. Voluptas consequuntur vitae aperiam animi sint earum, ex unde cupiditate, molestias dolore quos quas possimus eveniet facilis magnam? Vero, dicta.</p>
-                                <Link>Read More</Link>
+                                <Link to="/">Read More</Link>
                             </div>
                         </div>
                         <div className="col-md-6 px-0">
@@ -32,7 +32,7 @@ const AboutPage = () => {
                         <div className="col-md-3">
                             <div className="info_contact">
                                 <h5>
-                                    <Link to="/" className="navbar-brand">
+                                    <Link to="/Home" className="navbar-brand">
                                         <span>Minics</span>
                                     </Link>
                                 </h5>

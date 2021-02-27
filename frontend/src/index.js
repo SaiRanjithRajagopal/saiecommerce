@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import VoidMain from './components/VoidMain';
+import { Provider } from 'react-redux';
+import Store from './components/Redux_Thunk/Store'
+
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={Store}>
     <VoidMain />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById('root')
 );
 
