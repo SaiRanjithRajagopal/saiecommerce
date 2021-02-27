@@ -8,7 +8,7 @@ import Search from './NavBar/Search'
 import UserAccount from './NavBar/UserAccount'
 import CompanyName from './NavBar/CompanyName'
 import Menu from './NavBar/Menu'
-import BodyContent from '../Home/Body/BodyContent'
+import HomePage_BodyContent from '../Home/Body/BodyContent'
 import Products from '../Products/ProductsPage'
 import About from '../About/AboutPage'
 import WhyUs from '../WhyUs/WhyusPage'
@@ -44,7 +44,7 @@ const MasterPage = () => {
                     <Route path="/About" component={About} exact />
                     <Route path="/WhyUs" component={WhyUs} exact />
                     <Route path="/Testimonial" component={TestimonialPage} exact />
-                    <Route path="/" component={BodyContent} exact />
+                    <Route path="/" component={HomePage_BodyContent} exact />
                 </div>
             </div>
         </Router>
