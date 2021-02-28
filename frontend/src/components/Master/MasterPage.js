@@ -4,7 +4,7 @@ import './MasterPage.scss';
 import MenuBar from './NavBar/MenuBar'
 import HomePage_BodyContent from '../Home/Body/BodyContent'
 import About from '../About/AboutPage'
-import Products from '../Products/ProductsPage'
+import Products from '../Products/All_Products/ProductsPage'
 import WhyUs from '../WhyUs/WhyusPage'
 import TestimonialPage from '../Testimonial/TestimonialPage'
 

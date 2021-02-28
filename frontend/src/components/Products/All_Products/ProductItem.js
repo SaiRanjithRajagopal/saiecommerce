@@ -24,7 +24,7 @@ const ProductItem = ({ product }) => {
                         <tbody>
                             <tr>
                                 <td><Link to={`../Product_Details/ProductInfo/${product._id}`} type="button" className="btn btn-outline-danger lg">View Details</Link></td>
-                                <td style={{ width: 90 }}></td>
+                                <td style={{ width: 40 }}></td>
                                 <td><Link to="/" type="button" className="btn btn-outline-danger lg">Add To Cart</Link></td>
                             </tr>
                         </tbody>

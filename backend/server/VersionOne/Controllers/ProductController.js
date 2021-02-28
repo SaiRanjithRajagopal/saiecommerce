@@ -18,8 +18,7 @@ exports.newProduct = asyncErrorHandler(async (req, res, next) => {
 });
 
 exports.getProducts = asyncErrorHandler(async (req, res, next) => {
-
-    const resultsPerPage = 4;
+    const resultsPerPage = 6;
     const totalProductCount = await Product.countDocuments();
     const apiFeatures = new APIFeatures(Product.find(), req.query)
         .search()
@@ -28,13 +27,14 @@ exports.getProducts = asyncErrorHandler(async (req, res, next) => {
 
     //TODO  Ranj - Find how this (. query) is working...need to investigate more - Javascript Magic
     const products = await apiFeatures.query;
-    //console.log(products);
+
+    // setTimeout(() => {
     res.status(200).json({
         'success': true,
-        count: products.length,
         totalProductCount,
         products
     });
+    // }, 2000);
 });
 
 exports.getSingleProduct = asyncErrorHandler(async (req, res, next) => {
