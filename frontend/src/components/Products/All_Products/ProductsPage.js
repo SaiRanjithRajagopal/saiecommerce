@@ -4,15 +4,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProducts } from '../../Redux_Thunk/Actions/ProductActions'
 import ProductItem from './ProductItem'
 import Spinner from '../../Loader/Spinner'
+import { useAlert } from 'react-alert';
 
 const ProductsPage = () => {
     const dispatch = useDispatch();
+    const alert = useAlert();
 
-    const { loading, products, error, productsCount } = useSelector(state => state.products);
+    const { loading, products, success, productsCount } = useSelector(state => state.products);
 
     useEffect(() => {
+        if (products.success == false) {
+            return alert.error('Internal Server error');
+        }
         dispatch(getProducts());
-    }, [dispatch, error])
+    }, [dispatch, alert, products.success])
 
     return (
         <React.Fragment>
@@ -23,7 +28,7 @@ const ProductsPage = () => {
                             <h2>Our Products</h2>
                         </div>
                         <div className="row">
-                            {products && products.map(product => (
+                            {Array.isArray(products) && products.map(product => (
                                 <ProductItem key={product._id} product={product} />
                             ))}
                         </div>
