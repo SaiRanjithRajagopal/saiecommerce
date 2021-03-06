@@ -9,13 +9,12 @@ import {
     PRODUCT_DETAILS_FAIL
 } from '../../../constants/ProductConstants';
 
-export const getProducts = () => async (dispatch) => {
+export const getProducts = (currentPage = 1) => async (dispatch) => {
     try {
         dispatch({
             type: ALL_PRODUCTS_REQUEST
         });
-        const { data } = await axios.get('/api/v1/products');
-
+        const { data } = await axios.get(`/api/v1/products?page=${currentPage}`);
         dispatch({
             type: ALL_PRODUCTS_SUCCESS,
             payload: data
@@ -36,14 +35,12 @@ export const getProductDetails = (id) => async (dispatch) => {
             type: PRODUCT_DETAILS_REQUEST
         });
         const { data } = await axios.get(`/api/v1/product/${id}`);
-        console.log(data);
         dispatch({
             type: PRODUCT_DETAILS_SUCCESS,
             payload: data
         })
     }
     catch (error) {
-        console.log(error);
         dispatch({
             type: PRODUCT_DETAILS_FAIL,
             payload: error.response.data
@@ -54,6 +51,6 @@ export const getProductDetails = (id) => async (dispatch) => {
 //clear Errors
 export const clearErrors = () => async (dispatch) => {
     dispatch({
-        typr: CLEAR_ERRORS
+        type: CLEAR_ERRORS
     })
 }
