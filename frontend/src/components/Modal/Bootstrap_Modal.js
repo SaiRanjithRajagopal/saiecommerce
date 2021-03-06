@@ -1,7 +1,6 @@
 import React from 'react'
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
-import ModalHeader from 'react-bootstrap/ModalHeader'
 
 const Bootstrap_Modal = ({ show, handleSave, handleClose, children }) => {
     return (
