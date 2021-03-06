@@ -12,7 +12,6 @@ process.on('uncaughtException', err => {
     process.exit(1);
 })
 
-
 // Load env variables
 donEnvConfig.config({ path: 'server/Config/config.env' })
 const PORT = process.env.PORT || 5000;
@@ -20,11 +19,9 @@ const PORT = process.env.PORT || 5000;
 //Import MiddleWare
 const errorMiddleWare = require('./VersionOne/Middleware/errors')
 
-
 //Activate the Database Connection
 const ConnecToDB = require('./Config/connectDatabase')
 ConnecToDB();//Connecting to Database
-
 
 //Router Endpoints
 const productRoutes = require('./VersionOne/Routes/ProductRouter')
@@ -32,26 +29,17 @@ const userRoutes = require('./VersionOne/Routes/UserRouter')
 const orderRoutes = require('./VersionOne/Routes/OrderRouter')
 const prodcutReviewsRoutes = require('./VersionOne/Routes/ProductReviewsRouter')
 
-
 //Define the Express
 const app = express();
 
-
 // Body parser. This will help to parse the JSON request attached from the client.Also this will help to find the attached parameters from the request
 app.use(express.json());
+
 // Enable CORS - This will help to avoid the exception thrown at the browser. Client runs on the different port and server is hosted on different port. Because of the different port, browser will consider that it will is not a safe request. cors will
 app.use(cors());
-// app.use(function (req, res, next) {
-//     res.header("Access-Control-Allow-Origin:http://localhost:3000/");
-//     res.header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
-//     res.header("Access-Control-Allow-Headers: Content-Type, Authorization");
-
-//     next();
-// });
 
 //Cookie parser will help you to save the tokens in the cookies
 app.use(cookieParser());
-
 
 //redirect to routes - endpoints
 app.use('/api/v1/', productRoutes);
@@ -59,17 +47,13 @@ app.use('/api/v1/', userRoutes);
 app.use('/api/v1/', orderRoutes);
 app.use('/api/v1/', prodcutReviewsRoutes);
 
-
 //configure the middlewares
 app.use(errorMiddleWare);
-
 
 //Runs the node js using express.js
 const server = app.listen(PORT, () => {
     console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`.green.toUpperCase().bold);
 });
-
-
 
 //Capture Unhandle Promise Rejection
 process.on('unhandledRejection', err => {

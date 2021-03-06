@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from "react-router-dom";
 
-import Ratings from './Ratings'
+import DisplayRatings from '../../Ratings/DisplayRatings'
 
 
 const ProductItem = ({ product }) => {
@@ -17,7 +17,7 @@ const ProductItem = ({ product }) => {
                         <div className="product_info">
                             <h5><span>$</span>{product.price}</h5>
                             <div className="star_container">
-                                <Ratings ratings={product.ratings} reviews={product.numofReviews} />
+                                <DisplayRatings ratings={product.ratings} reviews={product.numofReviews} />
                             </div>
                         </div>
                     </div>
@@ -36,4 +36,4 @@ const ProductItem = ({ product }) => {
     )
 }
 
-export default ProductItem
+export default ProductItem;

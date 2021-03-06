@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Ratings = ({ ratings, reviews }) => {
+const DisplayRatings = ({ ratings, reviews }) => {
     var elements = [];
 
     for (var i = 1; i <= 5; i++) {
@@ -25,6 +25,6 @@ const Ratings = ({ ratings, reviews }) => {
     )
 }
 
-export default Ratings;
+export default DisplayRatings;
 
 

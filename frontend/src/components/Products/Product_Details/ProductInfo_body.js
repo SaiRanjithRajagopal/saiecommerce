@@ -1,10 +1,15 @@
 import React from 'react'
 import Carousel from 'react-bootstrap/Carousel'
 import { Link } from "react-router-dom";
-import Ratings from '../All_Products/Ratings'
+
 import './ProductInfo.css'
 
-const ProductInfo_body = ({ product }) => {
+import DisplayRatings from '../../Ratings/DisplayRatings'
+import Bootstrap_Modal from '../../Modal/Bootstrap_Modal'
+import AddRatings from '../../Ratings/AddRatings'
+
+const ProductInfo_body = ({ product, show, handleClose, handleSave, handleShow, ratingChanged }) => {
+
     return (
         <React.Fragment>
             <div className="row">
@@ -26,9 +31,9 @@ const ProductInfo_body = ({ product }) => {
                 <div className="col">
                     <div className="product__details__text">
                         <h3 className="h1">{product.name}</h3>
-                        <p style={{ 'font-size': 13 }}>Product Id: {product._id}</p>
+                        <p className="productId_FontSize">Product Id: {product._id}</p>
                         <div className="product__details__rating">
-                            <Ratings ratings={product.ratings} reviews={product.numofReviews} />
+                            <DisplayRatings ratings={product.ratings} reviews={product.numofReviews} />
                         </div>
                         <div className="product__details__price">${product.price}</div>
                         <p>{product.description}</p>
@@ -50,7 +55,7 @@ const ProductInfo_body = ({ product }) => {
                         <div className="col-5">
                         </div>
                         <div className="col">
-                            <Link to="/" type="button" className="btn btn-warning">ADD TO CARD</Link>
+                            <Link to="/" type="button" className="btn btn-warning">Add to Cart</Link>
                         </div>
                     </div>
                     <div className="product__details__text">
@@ -67,6 +72,18 @@ const ProductInfo_body = ({ product }) => {
                                 </div>
                             </li>
                         </ul>
+                    </div>
+                    <br />
+                    <div className="row">
+                        <div className="col" className="text-center">
+                            <button type="button" className="btn btn-warning" onClick={handleShow}>Add Ratings</button>
+                            <Bootstrap_Modal
+                                show={show}
+                                handleClose={handleClose}
+                                handleSave={handleSave}>
+                                <AddRatings ratingChanged={ratingChanged} />
+                            </Bootstrap_Modal>
+                        </div>
                     </div>
                 </div>
             </div>

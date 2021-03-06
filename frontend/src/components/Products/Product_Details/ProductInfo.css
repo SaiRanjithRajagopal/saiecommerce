@@ -8,6 +8,10 @@
   font-weight: bold;
 }
 
+.productId_FontSize {
+  font-size: 13;
+}
+
 .spad {
   padding-top: 100px;
   padding-bottom: 100px;

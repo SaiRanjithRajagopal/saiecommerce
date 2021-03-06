@@ -3,14 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
 
 import { getProducts } from '../../Redux_Thunk/Actions/ProductActions'
-import ProductItem from './ProductItem'
+import ProductItem from '../Individual_Product/ProductItem'
 import Spinner from '../../Loader/Spinner'
 
 
 const ProductsPage = () => {
     const dispatch = useDispatch();
     const alert = useAlert();
-
     const { loading, products, success, productsCount } = useSelector(state => state.products);
 
     useEffect(() => {
