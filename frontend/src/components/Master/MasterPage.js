@@ -7,6 +7,7 @@ import About from '../About/AboutPage'
 import Products from '../Products/All_Products/ProductsPage'
 import WhyUs from '../WhyUs/WhyusPage'
 import TestimonialPage from '../Testimonial/TestimonialPage'
+import ProductInfo from '../Products/Product_Details/ProductInfo'
 
 const MasterPage = () => {
     return (
@@ -18,6 +19,7 @@ const MasterPage = () => {
                     <Route path="/Products" component={Products} exact />
                     <Route path="/WhyUs" component={WhyUs} exact />
                     <Route path="/Testimonial" component={TestimonialPage} exact />
+                    <Route path="/ProductInfo/:id" component={ProductInfo} exact />
                     <Route path="/" component={HomePage_BodyContent} exact />
                 </div>
             </div>

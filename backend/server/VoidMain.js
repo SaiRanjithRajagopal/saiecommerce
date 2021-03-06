@@ -17,7 +17,6 @@ process.on('uncaughtException', err => {
 donEnvConfig.config({ path: 'server/Config/config.env' })
 const PORT = process.env.PORT || 5000;
 
-
 //Import MiddleWare
 const errorMiddleWare = require('./VersionOne/Middleware/errors')
 
@@ -42,6 +41,14 @@ const app = express();
 app.use(express.json());
 // Enable CORS - This will help to avoid the exception thrown at the browser. Client runs on the different port and server is hosted on different port. Because of the different port, browser will consider that it will is not a safe request. cors will
 app.use(cors());
+// app.use(function (req, res, next) {
+//     res.header("Access-Control-Allow-Origin:http://localhost:3000/");
+//     res.header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
+//     res.header("Access-Control-Allow-Headers: Content-Type, Authorization");
+
+//     next();
+// });
+
 //Cookie parser will help you to save the tokens in the cookies
 app.use(cookieParser());
 

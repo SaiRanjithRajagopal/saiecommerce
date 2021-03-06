@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import Ratings from './Ratings'
 
+
 const ProductItem = ({ product }) => {
     return (
         <React.Fragment>
@@ -23,9 +24,9 @@ const ProductItem = ({ product }) => {
                     <table>
                         <tbody>
                             <tr>
-                                <td><Link to={`../Product_Details/ProductInfo/${product._id}`} type="button" className="btn btn-outline-danger lg">View Details</Link></td>
+                                <td><Link to={`/ProductInfo/${product._id}`} type="button" className="btn btn-danger">View Details</Link></td>
                                 <td style={{ width: 40 }}></td>
-                                <td><Link to="/" type="button" className="btn btn-outline-danger lg">Add To Cart</Link></td>
+                                <td><Link to="/" type="button" className="btn btn-warning">Add To Cart</Link></td>
                             </tr>
                         </tbody>
                     </table>

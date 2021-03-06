@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
+
 import { getProducts } from '../../Redux_Thunk/Actions/ProductActions'
 import ProductItem from './ProductItem'
 import Spinner from '../../Loader/Spinner'
-import { useAlert } from 'react-alert';
+
 
 const ProductsPage = () => {
     const dispatch = useDispatch();

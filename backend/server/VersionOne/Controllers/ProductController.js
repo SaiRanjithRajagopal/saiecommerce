@@ -18,7 +18,6 @@ exports.newProduct = asyncErrorHandler(async (req, res, next) => {
 });
 
 exports.getProducts = asyncErrorHandler(async (req, res, next) => {
-    console.log('received');
     //return next(new ErrorHandler('Product not found', 400));
 
     const resultsPerPage = 6;
@@ -41,6 +40,7 @@ exports.getProducts = asyncErrorHandler(async (req, res, next) => {
 });
 
 exports.getSingleProduct = asyncErrorHandler(async (req, res, next) => {
+    //return next(new ErrorHandler('Product not found', 400));
     const product = await Product.findById(req.params.Id);
     if (!product) {
         return next(new ErrorHandler('Product not found', 404));
