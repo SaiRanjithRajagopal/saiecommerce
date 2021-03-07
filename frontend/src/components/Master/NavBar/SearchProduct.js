@@ -7,7 +7,6 @@ const SearchProduct = ({ history }) => {
 
     const searchHandler = (e) => {
         e.preventDefault();
-
         if (keyword.trim()) {
             history.push(`/Products/${keyword}`)
         } else {

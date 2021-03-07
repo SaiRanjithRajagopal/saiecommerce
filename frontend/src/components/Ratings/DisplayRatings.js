@@ -1,6 +1,6 @@
 import React from 'react'
 
-const DisplayRatings = ({ ratings, reviews }) => {
+const DisplayRatings = ({ ratings, reviews = 0, reviewRequired = true }) => {
     var elements = [];
 
     for (var i = 1; i <= 5; i++) {
@@ -17,7 +17,9 @@ const DisplayRatings = ({ ratings, reviews }) => {
             }
         }
     }
-    elements.push(<span key={i + 1}> ({reviews || 0} Reviews) </span>);
+    if (reviewRequired) {
+        elements.push(<span key={i + 1}> ({reviews || 0} Reviews) </span>);
+    }
     return (
         <p>
             { elements}
