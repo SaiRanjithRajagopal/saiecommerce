@@ -8,19 +8,22 @@ import ProductItem from '../Individual_Product/ProductItem'
 import Spinner from '../../Loader/Spinner'
 
 
-const ProductsPage = () => {
+const ProductsPage = ({ match }) => {
     const dispatch = useDispatch();
     const alert = useAlert();
 
     const [currentPage, setCurrentPage] = useState(1);
     const { loading, products, success, productsCount, resultsPerPage } = useSelector(state => state.products);
 
+    const keyword = match.params.keyword;
+    console.log(match);
     useEffect(() => {
         if (products.success == false) {
             return alert.error('Internal Server error');
         }
-        dispatch(getProducts(currentPage));
-    }, [dispatch, alert, products.success, currentPage]);
+        console.log(`currentPage - ${currentPage}--resultsPerPage - ${resultsPerPage} --productsCount ${productsCount} --setCurrentPageNo${setCurrentPageNo}`);
+        dispatch(getProducts(keyword, currentPage));
+    }, [dispatch, alert, products.success, keyword, currentPage]);
 
     const setCurrentPageNo = (pageNumber) => {
         setCurrentPage(pageNumber);

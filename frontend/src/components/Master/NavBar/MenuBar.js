@@ -1,6 +1,7 @@
 import React from 'react'
+import { Route } from 'react-router-dom'
 import Contact from './Contact'
-import Search from './Search'
+import SearchProduct from './SearchProduct'
 import UserAccount from './UserAccount'
 import CompanyName from './CompanyName'
 import NavigationMenu from './NavigationMenu'
@@ -14,7 +15,7 @@ const MenuBar = () => {
                         <div className="container-fluid">
                             <div className="top_nav_container">
                                 <Contact />
-                                <Search />
+                                <Route render={({ history }) => <SearchProduct history={history} />} />
                                 <UserAccount />
                             </div>
                         </div>
