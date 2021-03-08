@@ -66,6 +66,9 @@ const RegisterUser = ({ history }) => {
                         <button className="btn btn-success" type="submit">Register</button>
                     </form>
                     <br />
+                    <div className="col">
+                        <NavLink to="/User/Login" className="btn btn-warning" type="button">Login</NavLink>
+                    </div>
                 </div>
             )}
         </React.Fragment>

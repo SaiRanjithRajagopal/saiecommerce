@@ -64,7 +64,7 @@ const Login = ({ history }) => {
                     <br />
                     <div className="row">
                         <div className="col">
-                            <NavLink to="/" className="btn btn-primary" type="button">Password</NavLink>
+                            <NavLink to="/User/ResetPassword" className="btn btn-primary" type="button">Reset Password</NavLink>
                         </div>
                         <div className="col">
                             <NavLink to="/User/Register" className="btn btn-warning" type="button">Register</NavLink>
