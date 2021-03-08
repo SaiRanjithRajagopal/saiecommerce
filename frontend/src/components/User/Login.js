@@ -1,43 +1,80 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux';
+import { useAlert } from 'react-alert';
+import { NavLink } from 'react-router-dom';
 
-const Login = () => {
+import './Login.css'
+
+import Spinner from '../Loader/Spinner'
+import { authenticateUser, clearErrors } from '../Redux_Thunk/Actions/UserAction'
+import { Link } from 'react-router-dom';
+
+const Login = ({ history }) => {
+
+    const dispatch = useDispatch();
+    const alert = useAlert();
+
+    const [userName, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+
+    const { loading, isAuthenticated, error } = useSelector(state => state.userAuthentication);
+
+    useEffect(() => {
+
+        if (isAuthenticated) {
+            history.push('/');
+        }
+
+        if (error) {
+            alert.error(error);
+            dispatch(clearErrors());
+        }
+    }, [dispatch, alert, isAuthenticated, error, history]);
+
+    const loginHandler = (e) => {
+        e.preventDefault();
+        dispatch(authenticateUser(userName, password));
+    }
+
     return (
-        <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
-            <form>
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputEmail1">Email address</label>
-                    <input type="email"
-                        className="form-control"
-                        id="email"
-                        aria-describedby="emailHelp"
-                        placeholder="Enter email"
-                    />
-                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+        <React.Fragment>
+            {loading ? <Spinner /> : (
+                <div className="text-center">
+                    <div className="form-signin">
+                        <form onSubmit={loginHandler}>
+                            <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+                            <label htmlFor="inputEmail" className="visually-hidden">Email address</label>
+
+                            <input type="email" id="inputEmail"
+                                className="form-control"
+                                placeholder="Email address" required
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)}
+                            />
+
+                            <label htmlFor="inputPassword" className="visually-hidden">Password</label>
+
+                            <input type="password"
+                                id="inputPassword"
+                                className="form-control"
+                                onChange={(e) => setPassword(e.target.value)}
+                                value={password}
+                                placeholder="Password" required />
+                            <button className="btn btn-success" type="submit">Sign in</button>
+                        </form>
+                        <br />
+                        <div className="row">
+                            <div className="col">
+                                <NavLink to="/" className="btn btn-primary" type="button">Password</NavLink>
+                            </div>
+                            <div className="col">
+                                <NavLink to="/" className="btn btn-warning" type="button">Register</NavLink>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Password</label>
-                    <input type="password"
-                        className="form-control"
-                        id="password"
-                        placeholder="Password"
-                    />
-                </div>
-                <div className="form-group text-left">
-                    <label htmlFor="exampleInputPassword1">Confirm Password</label>
-                    <input type="password"
-                        className="form-control"
-                        id="confirmPassword"
-                        placeholder="Confirm Password"
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="btn btn-primary"
-                >
-                    Register
-                </button>
-            </form>
-        </div>
+            )}
+        </React.Fragment>
     )
 }
 
