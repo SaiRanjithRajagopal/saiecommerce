@@ -13,6 +13,8 @@ import Login from '../User/Login'
 import RegisterUser from '../User/RegisterUser'
 import ResetPassword from '../User/ForgotPassword'
 import UpdatePassword from '../User/UpdatePassword'
+import Display_Products from '../Products/Update_Product/Display_Products'
+import Create_Products from '../Products/CreateProduct/NewProduct'
 
 const MasterPage = () => {
     return (
@@ -30,6 +32,8 @@ const MasterPage = () => {
                     <Route path="/User/Register" component={RegisterUser} exact />
                     <Route path="/User/ResetPassword" component={ResetPassword} exact />
                     <Route path="/User/UpdatePassword/:link" component={UpdatePassword} exact />
+                    <Route path="/Product/UpdateExisting" component={Display_Products} exact />
+                    <Route path="/Product/CreateNew" component={Create_Products} exact />
                     <Route path="/" component={HomePage_BodyContent} exact />
                 </div>
             </div>

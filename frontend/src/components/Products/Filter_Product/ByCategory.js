@@ -5,7 +5,7 @@ const ByCategory = ({ categories, category, setCategory }) => {
     return (
         <div>
             <h4>Categories</h4>
-            <ListGroup as="ui">
+            <ListGroup>
                 {categories.map(currentCategory => (
                     <ListGroup.Item as="li" className={(currentCategory == 'All' && category == '') ? 'active' : (currentCategory == category ? 'active onMouseHover' : 'onMouseHover')}
                         key={currentCategory}

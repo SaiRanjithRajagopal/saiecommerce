@@ -28,4 +28,4 @@ const SearchProduct = ({ history }) => {
     )
 }
 
-export default SearchProduct
+export default SearchProduct;

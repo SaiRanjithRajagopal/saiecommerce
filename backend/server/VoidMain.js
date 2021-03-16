@@ -17,17 +17,17 @@ donEnvConfig.config({ path: 'server/Config/config.env' })
 const PORT = process.env.PORT || 5000;
 
 //Import MiddleWare
-const errorMiddleWare = require('./VersionOne/Middleware/errors')
+const errorMiddleWare = require('./VersionOne/Middleware/errors');
 
 //Activate the Database Connection
-const ConnecToDB = require('./Config/connectDatabase')
+const ConnecToDB = require('./Config/connectDatabase');
 ConnecToDB();//Connecting to Database
 
 //Router Endpoints
-const productRoutes = require('./VersionOne/Routes/ProductRouter')
-const userRoutes = require('./VersionOne/Routes/UserRouter')
-const orderRoutes = require('./VersionOne/Routes/OrderRouter')
-const prodcutReviewsRoutes = require('./VersionOne/Routes/ProductReviewsRouter')
+const productRoutes = require('./VersionOne/Routes/ProductRouter');
+const userRoutes = require('./VersionOne/Routes/UserRouter');
+const orderRoutes = require('./VersionOne/Routes/OrderRouter');
+const prodcutReviewsRoutes = require('./VersionOne/Routes/ProductReviewsRouter');
 
 //Define the Express
 const app = express();

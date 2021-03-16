@@ -38,15 +38,15 @@ export const authenticateUser = (email, password) => async (dispatch) => {
     }
 };
 
-export const registerUser = (userName, password, name) => async (dispatch) => {
+export const registerUser = (userData) => async (dispatch) => {
     try {
         dispatch({ type: CREATE_NEW_USER_REQUEST });
         const config = {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'multipart/form-data'
             }
         }
-        const { data } = await axios.post(`/api/v1/user/register`, { email: userName, password, name }, config);
+        const { data } = await axios.post(`/api/v1/user/register`, { userData }, config);
 
         dispatch({
             type: CREATE_NEW_USER_SUCCESS,

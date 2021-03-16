@@ -8,7 +8,7 @@ const ByRatings = ({ rating, setRating }) => {
         <React.Fragment>
             <h4>Ratings</h4>
             {
-                <ListGroup as="ui">
+                <ListGroup>
                     {[6, 5, 4, 3, 2, 1].map(star => (
                         <ListGroup.Item as="li"
                             className={star == rating ? 'active onMouseHover' : 'onMouseHover'}

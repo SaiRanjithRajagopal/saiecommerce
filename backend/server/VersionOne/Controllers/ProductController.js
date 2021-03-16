@@ -20,23 +20,32 @@ exports.newProduct = asyncErrorHandler(async (req, res, next) => {
 exports.getProducts = asyncErrorHandler(async (req, res, next) => {
     //return next(new ErrorHandler('Product not found', 400));
 
-    const resultsPerPage = 6;
+    let resultsPerPage = 20;
+    console.log(resultsPerPage);
     const totalProductCount = await Product.countDocuments();
     const apiFeatures = new APIFeatures(Product.find(), req.query)
         .search()
-        .filter()
-        .pagination(resultsPerPage);
+        .filter();
+    //.pagination(resultsPerPage);
 
     //TODO  Ranj - Find how this (. query) is working...need to investigate more - Javascript Magic
-    const products = await apiFeatures.query;
+    let products = await apiFeatures.query;
 
-    // setTimeout(() => {
+    let filteredProductsCount = products.length;
+    if (resultsPerPage > 0) {
+        apiFeatures.pagination(resultsPerPage);
+    }
+    products = await apiFeatures.query;
+
+    //setTimeout(() => {
     res.status(200).json({
         'success': true,
         totalProductCount,
+        resultsPerPage,
+        filteredProductsCount,
         products
     });
-    // }, 2000);
+    // }, 5000);
 });
 
 exports.getSingleProduct = asyncErrorHandler(async (req, res, next) => {

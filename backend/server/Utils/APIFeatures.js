@@ -30,7 +30,7 @@ class APIFeatures {
         //TODO need to learn how to filter teh records from javascript
         //Removing fileds from the query
         //console.log(`Removing fileds from the query ${queryCopy}`);
-        const removeFields = ['keyword', 'limit', 'page'];
+        const removeFields = ['keyword', 'limit', 'page', 'recordsRequested'];
         removeFields.forEach(el => delete queryCopy[el]);
 
         //console.log(`Advance filtering ${queryCopy}`);

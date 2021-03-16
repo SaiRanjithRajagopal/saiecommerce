@@ -9,12 +9,19 @@ import {
     PRODUCT_DETAILS_FAIL
 } from '../../../constants/ProductConstants';
 
-export const getProducts = (keyword = '', currentPage = 1, price, category, rating = 0) => async (dispatch) => {
+export const getProducts = (keyword = '', currentPage = 1, price, category, rating = 0, recordsRequested) => async (dispatch) => {
     try {
+
         dispatch({
             type: ALL_PRODUCTS_REQUEST
         });
-        let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&ratings[gte]=${rating}`;
+        console.log(`recordsRequested -- ${recordsRequested}`);
+        let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&recordsRequested=${recordsRequested}`;
+
+        if (price) {
+            let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&ratings[gte]=${rating}`;
+        }
+
         if (category) {
             link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${category}&ratings[gte]=${rating}`;
         }
