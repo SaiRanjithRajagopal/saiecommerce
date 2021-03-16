@@ -3,6 +3,10 @@ const cors = require('cors');
 const colors = require('colors');
 const donEnvConfig = require('dotenv');
 const cookieParser = require('cookie-parser');
+const bodyparser = require('body-parser');
+const cloudinary = require('cloudinary');
+const fileUpload = require('express-fileupload');
+
 
 //Console.log(a); -- a is undefined; Javascript error
 //This will capture all the javascript exceptions in the application
@@ -34,6 +38,17 @@ const app = express();
 
 // Body parser. This will help to parse the JSON request attached from the client.Also this will help to find the attached parameters from the request
 app.use(express.json());
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({ extended: true }));
+
+app.use(fileUpload());
+
+//Setting up cloudinary config
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET_KEY
+})
 
 // Enable CORS - This will help to avoid the exception thrown at the browser. Client runs on the different port and server is hosted on different port. Because of the different port, browser will consider that it will is not a safe request. cors will
 app.use(cors());
