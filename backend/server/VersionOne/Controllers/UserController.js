@@ -9,11 +9,17 @@ const crypto = require('crypto');
 const cloudinary = require('cloudinary');
 
 exports.registerUser = catchAsyncError(async (req, res, next) => {
-
-    const result = await cloudinary.v2.uploader.upload(req.body.avatar);
-
+    let result = undefined;
+    if (req.body.avatar) {
+        result = await cloudinary.v2.uploader.upload(req.body.avatar);
+    }
+    else {
+        result = {
+            public_id: "Id provided",
+            secure_url: "Url supplied"
+        }
+    }
     const { name, email, password } = req.body;
-    console.log(`email ${email}`);
     const user = await User.create({
         name,
         email,

@@ -43,6 +43,7 @@ export const authenticationReducer = (state = { user: {} }, action) => {
         case CLEAR_ERRORS:
             return {
                 ...state,
+                loading: false,
                 error: null
             }
 
@@ -64,8 +65,7 @@ export const createUser_Reducer = (state = { user: {} }, action) => {
             return {
                 ...state,
                 loading: false,
-                newUserCreated: true,
-                user: action.payload,
+                newUserCreated: true
             }
 
         case CREATE_NEW_USER_FAIL:
@@ -73,7 +73,6 @@ export const createUser_Reducer = (state = { user: {} }, action) => {
                 ...state,
                 loading: false,
                 newUserCreated: false,
-                user: null,
                 error: action.payload
             }
 
