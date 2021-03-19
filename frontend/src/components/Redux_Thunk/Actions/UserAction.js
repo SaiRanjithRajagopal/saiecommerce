@@ -13,7 +13,10 @@ import {
     FORGOT_PASSWORD_FAIL,
     UPDATE_PASSWORD_REQUEST,
     UPDATE_PASSWORD_SUCCESS,
-    UPDATE_PASSWORD_FAIL
+    UPDATE_PASSWORD_FAIL,
+    LOAD_USER_REQUEST,
+    LOAD_USER_SUCCESS,
+    LOAD_USER_FAIL
 } from '../../../constants/UserConstants';
 
 export const authenticateUser = (email, password) => async (dispatch) => {
@@ -103,6 +106,25 @@ export const updateUserPassword = (password, hashedLink) => async (dispatch) => 
         console.log(error.response.data);
         dispatch({
             type: UPDATE_PASSWORD_FAIL,
+            payload: error.response.data.message
+        })
+    }
+};
+
+export const loadUser = () => async (dispatch) => {
+    try {
+        dispatch({ type: LOAD_USER_REQUEST });
+
+        const { data } = await axios.get(`/api/v1/user/userprofile`);
+        dispatch({
+            type: LOAD_USER_SUCCESS,
+            payload: data.user
+        })
+    }
+    catch (error) {
+        console.log(error.response.data);
+        dispatch({
+            type: LOAD_USER_FAIL,
             payload: error.response.data.message
         })
     }

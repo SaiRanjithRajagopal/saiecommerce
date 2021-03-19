@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './MasterPage.scss';
@@ -15,8 +16,14 @@ import ResetPassword from '../User/ForgotPassword'
 import UpdatePassword from '../User/UpdatePassword'
 import Display_Products from '../Products/Update_Product/Display_Products'
 import Create_Products from '../Products/CreateProduct/NewProduct'
+import { loadUser } from '../Redux_Thunk/Actions/UserAction';
+import store from './../Redux_Thunk/Store';
 
 const MasterPage = () => {
+    useEffect(() => {
+        store.dispatch(loadUser());
+    }, []);
+
     return (
         <Router>
             <div className="hero_area">

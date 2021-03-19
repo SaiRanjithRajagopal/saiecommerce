@@ -162,6 +162,7 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
 
 //Get Currently Logged in users
 exports.getUserProfile = catchAsyncError(async (req, res, next) => {
+    console.log(req.user.id);
     const user = await User.findById(req.user.id);
     res.status(200).json({
         success: true,

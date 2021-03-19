@@ -18,11 +18,11 @@ const Login = ({ history }) => {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
 
-    const { loading, isAuthenticated, error } = useSelector(state => state.userAuthentication);
+    const { loading, isAuthenticated, error, user } = useSelector(state => state.userAuthentication);
 
     useEffect(() => {
-
-        if (isAuthenticated) {
+        console.log(`user - ${user.email}`);
+        if (user) {
             history.push('/');
         }
 
@@ -30,7 +30,7 @@ const Login = ({ history }) => {
             alert.error(error);
             dispatch(clearErrors());
         }
-    }, [dispatch, alert, isAuthenticated, error, history]);
+    }, [dispatch, alert, isAuthenticated, error, history, user]);
 
     const loginHandler = (e) => {
         e.preventDefault();
