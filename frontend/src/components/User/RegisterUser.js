@@ -15,7 +15,7 @@ const RegisterUser = ({ history }) => {
     const alert = useAlert();
     const [avatar, setAvatar] = useState('');
     const [avatarPreview, setAvatarPreview] = useState('/Images/profileImage.png');
-    const { loading, error } = useSelector(state => state.newUser);
+    const { loading, error, user } = useSelector(state => state.userAuthentication);
     const [newUser, setNewUser] = useState({
         name: '',
         email: '',
@@ -27,6 +27,10 @@ const RegisterUser = ({ history }) => {
         if (error) {
             alert.error(error);
             dispatch(clearErrors());
+        }
+
+        if (user) {
+            history.push('/');
         }
     }, [dispatch, alert, error, newUser]);
 

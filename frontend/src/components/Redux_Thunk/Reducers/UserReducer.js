@@ -62,8 +62,7 @@ export const authenticateReducer = (state = { user: {} }, action) => {
             return {
                 loading: false,
                 isAuthenticated: false,
-                user: null,
-                error: action.payload
+                user: null
             }
 
         case CLEAR_ERRORS:

@@ -21,10 +21,9 @@ const Login = ({ history }) => {
     const { loading, isAuthenticated, error, user } = useSelector(state => state.userAuthentication);
 
     useEffect(() => {
-        if (user) {
+        if (user && user._id) {
             history.push('/');
         }
-
         if (error) {
             alert.error(error);
             dispatch(clearErrors());

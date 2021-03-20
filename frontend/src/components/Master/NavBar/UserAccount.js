@@ -21,7 +21,7 @@ const UserAccount = () => {
                 <span>Cart</span>
             </Link>
             {
-                user ? (<div id="mydiv" className="account-link dropdown transparentbar" style={{ "zindex": 4 }}>
+                user && user._id ? (<div id="mydiv" className="account-link dropdown transparentbar" style={{ "zindex": 4 }}>
                     <button className="btn btn-default dropdown-toggle" type="button" id="mybyn" style={{ color: 'white' }} data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                         <img src={user.avatar && user.avatar.url} className="avatar" style={{ width: 25, height: 25 }} /><span style={{ marginLeft: 5 }}>My Account</span><span className="caret"></span>
                     </button>

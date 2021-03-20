@@ -40,7 +40,6 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
     }
 
     //Finding user in database
-    //We are eliminating the password in the selection
     const user = await User.findOne({ email }).select('+password');
 
     //If user not found return 401 error
@@ -236,8 +235,6 @@ exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
     });
 });
 
-//Admin Routes
-//Get all the users
 exports.allUsers = catchAsyncError(async (req, res, next) => {
     const users = await User.find();
     res.status(200).json({
@@ -257,9 +254,7 @@ exports.getUserDetails = catchAsyncError(async (req, res, next) => {
     })
 });
 
-//Get Currently Logged in users
 exports.updateUserProfile_Roles_ByAdmin = catchAsyncError(async (req, res, next) => {
-    console.log('sai');
     const newUserData = {
         name: req.body.name,
         email: req.body.email,
@@ -278,8 +273,8 @@ exports.updateUserProfile_Roles_ByAdmin = catchAsyncError(async (req, res, next)
     });
 });
 
-//Delete user
 exports.deleteUser = catchAsyncError(async (req, res, next) => {
+
     const user = await User.findById(req.params.id);
     if (!user) {
         return next(new ErrorHandler(`User does not found with id: ${req.params.id}`))

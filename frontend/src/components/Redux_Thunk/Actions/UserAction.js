@@ -55,12 +55,14 @@ export const authenticateUser = (email, password) => async (dispatch) => {
             }
         }
         const { data } = await axios.post(`/api/v1/user/login`, { email, password }, config);
+        console.log(data);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: data.user
         })
     }
     catch (error) {
+        console.log(error);
         dispatch({
             type: LOGIN_FAIL,
             payload: error.response.data.message

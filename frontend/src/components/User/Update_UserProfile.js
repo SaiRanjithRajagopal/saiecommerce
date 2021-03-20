@@ -108,9 +108,10 @@ const Update_UserProfile = () => {
                             />
                             {user && user.role === 'admin' ? (<div><label htmlFor="inputPassword" className="visually-hidden">Password</label>
                                 <Select
+                                    placeholder="Select Option"
                                     options={selectOptions}
                                     onChange={selectOnChange}
-                                    value={selectOptions.filter(option => option.value === updateUser.role)}
+                                    value={selectOptions.find(obj => obj.value === updateUser.role)}
                                 /></div>) : ""}
                             <br />
                             <div style={{ textAlign: 'center' }}>

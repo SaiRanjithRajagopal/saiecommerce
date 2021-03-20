@@ -13,7 +13,6 @@ const reducer = combineReducers({
     products: productsReducer,
     productDetails: productDetailsReducer,
     userAuthentication: authenticateReducer,
-    newUser: authenticateReducer,
     forgotPassword: forgotPassword_Reducer,
     updatePassword: updatePassword_Reducer
 });

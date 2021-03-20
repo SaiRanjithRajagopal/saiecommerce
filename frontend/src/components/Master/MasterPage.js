@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './MasterPage.scss';
@@ -22,8 +22,13 @@ import { loadUser } from '../Redux_Thunk/Actions/UserAction';
 import Update_UserProfile from '../User/Update_UserProfile'
 
 const MasterPage = () => {
+
+    const { user } = useSelector(state => state.userAuthentication);
+
     useEffect(() => {
+        //if (typeof user !== 'undefined' && user !== null && typeof user.email !== 'undefined') {
         store.dispatch(loadUser());
+        //}
     }, []);
 
     return (
