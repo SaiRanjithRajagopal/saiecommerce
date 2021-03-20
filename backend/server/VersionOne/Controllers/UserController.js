@@ -15,8 +15,8 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     }
     else {
         result = {
-            public_id: "Id provided",
-            secure_url: "Url supplied"
+            public_id: "",
+            secure_url: ""
         }
     }
     const { name, email, password } = req.body;
@@ -31,7 +31,6 @@ exports.registerUser = catchAsyncError(async (req, res, next) => {
     });
     sendToken(user, 200, res);
 });
-
 
 exports.loginUser = catchAsyncError(async (req, res, next) => {
     const { email, password } = req.body;
@@ -60,7 +59,6 @@ exports.loginUser = catchAsyncError(async (req, res, next) => {
 
     sendToken(user, 200, res);
 });
-
 
 exports.logout = catchAsyncError(async (req, res, next) => {
     res.cookie('token', null, {
@@ -159,10 +157,8 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     });
 });
 
-
 //Get Currently Logged in users
 exports.getUserProfile = catchAsyncError(async (req, res, next) => {
-    console.log(req.user.id);
     const user = await User.findById(req.user.id);
     res.status(200).json({
         success: true,
@@ -200,22 +196,43 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
 
 //Get Currently Logged in users
 exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
-    const newUserData = {
+    let result = undefined;
+    const getUser = await User.findById(req.user.id);
+
+    //If user not found return 401 error
+    if (!getUser) {
+        return next(new ErrorHandler('User not found with this email', 401));
+    } else {
+        result = {
+            public_id: getUser.avatar.public_id,
+            secure_url: getUser.avatar.url
+        }
+    }
+
+    if (req.body.avatar) {
+        result = await cloudinary.v2.uploader.upload(req.body.avatar);
+    }
+
+    const updateUserData = {
         name: req.body.name,
-        email: req.body.email
+        avatar: {
+            public_id: result.public_id,
+            url: result.secure_url
+        }
+
     };
 
     //Update Avatar: TODO
-
     //TODO Ranjith Need to understand update options in mongodb  new: true,runValidators: true,useFindAndModify: false
-    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+    const user = await User.findByIdAndUpdate(req.user.id, updateUserData, {
         new: true,
         runValidators: true,
         useFindAndModify: false
     });
 
     res.status(200).json({
-        "success": true
+        "success": true,
+        user
     });
 });
 

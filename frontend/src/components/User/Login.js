@@ -21,7 +21,6 @@ const Login = ({ history }) => {
     const { loading, isAuthenticated, error, user } = useSelector(state => state.userAuthentication);
 
     useEffect(() => {
-        console.log(`user - ${user.email}`);
         if (user) {
             history.push('/');
         }

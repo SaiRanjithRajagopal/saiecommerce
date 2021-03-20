@@ -3,6 +3,8 @@ import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import './MasterPage.scss';
+
+import store from './../Redux_Thunk/Store';
 import MenuBar from './NavBar/MenuBar';
 import HomePage_BodyContent from '../Home/Body/BodyContent';
 import About from '../About/AboutPage';
@@ -17,7 +19,7 @@ import UpdatePassword from '../User/UpdatePassword'
 import Display_Products from '../Products/Update_Product/Display_Products'
 import Create_Products from '../Products/CreateProduct/NewProduct'
 import { loadUser } from '../Redux_Thunk/Actions/UserAction';
-import store from './../Redux_Thunk/Store';
+import Update_UserProfile from '../User/Update_UserProfile'
 
 const MasterPage = () => {
     useEffect(() => {
@@ -39,6 +41,7 @@ const MasterPage = () => {
                     <Route path="/User/Register" component={RegisterUser} exact />
                     <Route path="/User/ResetPassword" component={ResetPassword} exact />
                     <Route path="/User/UpdatePassword/:link" component={UpdatePassword} exact />
+                    <Route path="/User/UpdateProfile" component={Update_UserProfile} exact />
                     <Route path="/Product/UpdateExisting" component={Display_Products} exact />
                     <Route path="/Product/CreateNew" component={Create_Products} exact />
                     <Route path="/" component={HomePage_BodyContent} exact />

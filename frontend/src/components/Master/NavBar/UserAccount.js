@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { Link } from 'react-router-dom'
+
+import { logout_User } from '../../Redux_Thunk/Actions/UserAction';
 
 const UserAccount = () => {
 
     const dispatch = useDispatch();
     const { loading, isAuthenticated, error, user } = useSelector(state => state.userAuthentication);
+
+    const userlogout = () => {
+        dispatch(logout_User());
+    }
 
     return (
         <div className="user_option_box" >
@@ -21,13 +26,15 @@ const UserAccount = () => {
                         <img src={user.avatar && user.avatar.url} className="avatar" style={{ width: 25, height: 25 }} /><span style={{ marginLeft: 5 }}>My Account</span><span className="caret"></span>
                     </button>
                     <ul className="dropdown-menu">
-                        <Link to="/" className="nav-link overrideCss_NavBar_DropDownMenu" style={{ color: 'black', 'textTransform': 'none' }}>My Profile</Link>
+                        <Link to="/User/UpdateProfile" className="nav-link overrideCss_NavBar_DropDownMenu" style={{ color: 'black', 'textTransform': 'none' }}>My Profile</Link>
                         {
                             user && user.role !== 'admin' ?
                                 (<Link to="/" className="nav-link overrideCss_NavBar_DropDownMenu" style={{ color: 'black', 'textTransform': 'none' }}>Orders</Link>)
                                 : (<Link to="/" className="nav-link overrideCss_NavBar_DropDownMenu" style={{ color: 'black', 'textTransform': 'none' }}>DashBoard</Link>)
                         }
-                        <Link to="/User/LogOut" className="nav-link overrideCss_NavBar_DropDownMenu" style={{ color: 'black', 'textTransform': 'none' }}>Log Out</Link>
+                        <Link to="/" onClick={userlogout}
+                            className="nav-link overrideCss_NavBar_DropDownMenu"
+                            style={{ color: 'black', 'textTransform': 'none' }}>Log Out</Link>
                     </ul>
                 </div>) : !loading && (
                     <Link className="account-link" to="/User/Login" >
