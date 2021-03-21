@@ -20,8 +20,8 @@
 }
 
 .wrapper form .btn {
-  background-color: #fa9c23;
-  border-color: #fa9c23;
+  background-color: #f3c93e;
+  border-color: 1px solid #f3c93e;
   color: white;
   margin-top: 2.5rem;
 }
@@ -31,10 +31,12 @@
   color: grey;
 }
 
+#forgot_password_button,
 #login_btn {
   width: 100%;
 }
 
+#forgotPasswordHeader,
 #loginHeader {
   text-align: center;
 }

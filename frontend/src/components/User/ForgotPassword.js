@@ -29,22 +29,50 @@ const ForgotPassword = () => {
     }
 
     return (
-        <div className="form-signin text-center">
-            <form onSubmit={resetPassword_Handler}>
-                <h1 className="h3 mb-3 fw-normal">Reset Password</h1>
+        <div className="container-container-fluid">
+            <div className="row wrapper">
+                <div className="col-10 col-lg-5">
+                    <form className="shadow-lg" onSubmit={resetPassword_Handler}>
+                        <h1 className="mb-3" id="forgotPasswordHeader">Forgot Password</h1>
+                        <br />
+                        <div className="form-group">
+                            <label for="email_field">Enter Email</label>
+                            <input
+                                type="email"
+                                id="email_field"
+                                className="form-control"
+                                placeholder="Email address"
+                                required
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                            />
+                        </div>
 
-                <label htmlFor="inputEmail" className="visually-hidden">Email address</label>
-                <input type="email" id="inputEmail"
-                    className="form-control"
-                    placeholder="Email address" required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                />
-                <br />
-                <button className="btn btn-success" type="submit">Reset Password</button>
-            </form>
+                        <button
+                            id="forgot_password_button"
+                            type="submit"
+                            className="btn btn-block py-3">Send Email</button>
+
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }
 
 export default ForgotPassword;
+
+
+{/* <form onSubmit={resetPassword_Handler}>
+<h1 className="h3 mb-3 fw-normal">Reset Password</h1>
+
+<label htmlFor="inputEmail" className="visually-hidden">Email address</label>
+<input type="email" id="inputEmail"
+    className="form-control"
+    placeholder="Email address" required
+    value={email}
+    onChange={(e) => setEmail(e.target.value)}
+/>
+<br />
+<button className="btn btn-success" type="submit">Reset Password</button>
+</form> */}

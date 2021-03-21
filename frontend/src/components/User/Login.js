@@ -70,16 +70,16 @@ const Login = ({ history }) => {
                                 <button
                                     id="login_btn"
                                     type="submit"
-                                    className="btn btn-block py-3">LOGIN</button>
+                                    className="btn btn-block py-3" style={{ fontWeight: 'bold' }}>Login</button>
                                 <br /> <br />
 
                                 <div className="row">
                                     <div className="col">
-                                        <NavLink to="/User/ForgotPassword" type="button">Forgot Password</NavLink>
+                                        <NavLink to="/User/ForgotPassword" type="button" style={{ color: 'black' }}>Forgot Password</NavLink>
                                     </div>
                                     <div className="col"></div>
                                     <div className="col">
-                                        <NavLink to="/User/Register" className="float-right mb-4" type="button">Register User</NavLink>
+                                        <NavLink to="/User/Register" className="float-right mb-4" type="button" style={{ color: 'black', marginLeft: 20 }}>Create Account</NavLink>
                                     </div>
                                 </div>
                             </form>
