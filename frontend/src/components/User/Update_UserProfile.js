@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import Select from 'react-select'
+import { Link } from 'react-router-dom'
 
 import Spinner from '../Loader/Spinner';
 import { updateUserProfile } from '../Redux_Thunk/Actions/UserAction'
@@ -115,7 +116,8 @@ const Update_UserProfile = () => {
                                 /></div>) : ""}
                             <br />
                             <div style={{ textAlign: 'center' }}>
-                                <button className="btn btn-success" type="submit" disabled={loading ? true : false}>Update</button>
+                                <button className="btn btn-success" type="submit" disabled={loading ? true : false} style={{ marginRight: 20 }}>Update Profile</button>
+                                <Link to={`/User/UpdatePassword`} className="btn btn-success" type="button" disabled={loading ? true : false}>Change Password</Link>
                             </div>
 
                         </div>

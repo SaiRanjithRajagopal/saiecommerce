@@ -27,68 +27,56 @@ import {
 export const registerUser = (formData) => async (dispatch) => {
     try {
         dispatch({ type: CREATE_NEW_USER_REQUEST });
+
         const config = {
             headers: { "Content-Type": "multipart/form-data" }
         }
+
         const { data } = await axios.post(`/api/v1/user/register`, formData, config);
 
-        dispatch({
-            type: CREATE_NEW_USER_SUCCESS,
-            payload: data.user
-        })
+        dispatch({ type: CREATE_NEW_USER_SUCCESS, payload: data.user });
     }
     catch (error) {
         console.log(error.response.data);
-        dispatch({
-            type: CREATE_NEW_USER_FAIL,
-            payload: error.response.data.message
-        })
+        dispatch({ type: CREATE_NEW_USER_FAIL, payload: error.response.data.message })
     }
 };
 
 export const authenticateUser = (email, password) => async (dispatch) => {
     try {
         dispatch({ type: LOGIN_REQUEST });
+
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
+
         const { data } = await axios.post(`/api/v1/user/login`, { email, password }, config);
-        console.log(data);
-        dispatch({
-            type: LOGIN_SUCCESS,
-            payload: data.user
-        })
+
+        dispatch({ type: LOGIN_SUCCESS, payload: data.user })
     }
     catch (error) {
         console.log(error);
-        dispatch({
-            type: LOGIN_FAIL,
-            payload: error.response.data.message
-        })
+        dispatch({ type: LOGIN_FAIL, payload: error.response.data.message })
     }
 };
 
 export const updateUserProfile = (formData) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_USERPROFILE_REQUEST });
+
         const config = {
             headers: { "Content-Type": "multipart/form-data" }
         }
+
         const { data } = await axios.put(`/api/v1/user/updateprofile`, formData, config);
 
-        dispatch({
-            type: UPDATE_USERPROFILE_SUCCESS,
-            payload: data.user
-        })
+        dispatch({ type: UPDATE_USERPROFILE_SUCCESS, payload: data.user })
     }
     catch (error) {
         console.log(error.response.data);
-        dispatch({
-            type: UPDATE_USERPROFILE_FAIL,
-            payload: error.response.data.message
-        })
+        dispatch({ type: UPDATE_USERPROFILE_FAIL, payload: error.response.data.message })
     }
 };
 
@@ -97,40 +85,32 @@ export const loadUser = () => async (dispatch) => {
         dispatch({ type: LOAD_USER_REQUEST });
 
         const { data } = await axios.get(`/api/v1/user/userprofile`);
-        dispatch({
-            type: LOAD_USER_SUCCESS,
-            payload: data.user
-        })
+
+        dispatch({ type: LOAD_USER_SUCCESS, payload: data.user })
     }
     catch (error) {
         console.log(error.response.data);
-        dispatch({
-            type: LOAD_USER_FAIL,
-            payload: error.response.data.message
-        })
+        dispatch({ type: LOAD_USER_FAIL, payload: error.response.data.message })
     }
 };
 
 export const logout_User = () => async (dispatch) => {
     try {
         await axios.get(`/api/v1/user/logout`);
-        dispatch({
-            type: LOGOUT_USER_SUCCESS
-        })
+
+        dispatch({ type: LOGOUT_USER_SUCCESS });
+
     }
     catch (error) {
         console.log(error.response.data);
-        dispatch({
-            type: LOGOUT_USER_FAIL,
-            payload: error.response.data.message
-        })
+        dispatch({ type: LOGOUT_USER_FAIL, payload: error.response.data.message })
     }
 };
-
 
 export const forgotUserPassword = (email) => async (dispatch) => {
     try {
         dispatch({ type: FORGOT_PASSWORD_REQUEST });
+
         const config = {
             headers: {
                 'Content-Type': 'application/json'
@@ -138,49 +118,55 @@ export const forgotUserPassword = (email) => async (dispatch) => {
         }
         const { data } = await axios.post(`/api/v1/user/forgotpassword`, { email }, config);
 
-        dispatch({
-            type: FORGOT_PASSWORD_SUCCESS,
-            payload: data.user
-        })
+        dispatch({ type: FORGOT_PASSWORD_SUCCESS, payload: data.user })
     }
     catch (error) {
         console.log(error.response.data);
-        dispatch({
-            type: FORGOT_PASSWORD_FAIL,
-            payload: error.response.data.message
-        })
+        dispatch({ type: FORGOT_PASSWORD_FAIL, payload: error.response.data.message })
     }
 };
 
-export const updateUserPassword = (password, hashedLink) => async (dispatch) => {
+export const resetUserPassword = (password, confirmPassword, hashedLink) => async (dispatch) => {
     try {
         dispatch({ type: UPDATE_PASSWORD_REQUEST });
+
         const config = {
             headers: {
                 'Content-Type': 'application/json'
             }
         }
-        const { data } = await axios.put(`/api/v1/user/resetPassword/${hashedLink}`, { password }, config);
 
-        dispatch({
-            type: UPDATE_PASSWORD_SUCCESS,
-            payload: data.user
-        })
+        const { data } = await axios.put(`/api/v1/user/resetPassword/${hashedLink}`, { password, confirmPassword }, config);
+
+        dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success })
     }
     catch (error) {
         console.log(error.response.data);
-        dispatch({
-            type: UPDATE_PASSWORD_FAIL,
-            payload: error.response.data.message
-        })
+        dispatch({ type: UPDATE_PASSWORD_FAIL, payload: error.response.data.message })
     }
 };
 
+export const updateUserPassword = (oldPassword, newPassword) => async (dispatch) => {
+    try {
+        dispatch({ type: UPDATE_PASSWORD_REQUEST });
 
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const { data } = await axios.put(`/api/v1/user/updatepassword`, { oldPassword, newPassword }, config);
 
-//clear Errors
+        dispatch({ type: UPDATE_PASSWORD_SUCCESS, payload: data.success });
+
+        dispatch(logout_User());
+    }
+    catch (error) {
+        console.log(error.response.data);
+        dispatch({ type: UPDATE_PASSWORD_FAIL, payload: error.response.data.message })
+    }
+};
+
 export const clearErrors = () => async (dispatch) => {
-    dispatch({
-        type: CLEAR_ERRORS
-    })
+    dispatch({ type: CLEAR_ERRORS })
 }

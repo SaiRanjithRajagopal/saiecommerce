@@ -14,12 +14,14 @@ import TestimonialPage from '../Testimonial/TestimonialPage';
 import ProductInfo from '../Products/Product_Details/ProductInfo';
 import Login from '../User/Login'
 import RegisterUser from '../User/RegisterUser'
-import ResetPassword from '../User/ForgotPassword'
-import UpdatePassword from '../User/UpdatePassword'
+import ForgotPassword from '../User/ForgotPassword'
+import ResetPassword from '../User/ResetPassword'
 import Display_Products from '../Products/Update_Product/Display_Products'
 import Create_Products from '../Products/CreateProduct/NewProduct'
 import { loadUser } from '../Redux_Thunk/Actions/UserAction';
 import Update_UserProfile from '../User/Update_UserProfile'
+import ProtectedRoute from '../Route/ProtectedRoute'
+import UpdatePassword from '../User/UpdatePassword'
 
 const MasterPage = () => {
 
@@ -44,9 +46,10 @@ const MasterPage = () => {
                     <Route path="/ProductInfo/:id" component={ProductInfo} exact />
                     <Route path="/User/Login" component={Login} exact />
                     <Route path="/User/Register" component={RegisterUser} exact />
-                    <Route path="/User/ResetPassword" component={ResetPassword} exact />
-                    <Route path="/User/UpdatePassword/:link" component={UpdatePassword} exact />
-                    <Route path="/User/UpdateProfile" component={Update_UserProfile} exact />
+                    <Route path="/User/ForgotPassword" component={ForgotPassword} exact />
+                    <Route path="/User/ResetPassword/:link" component={ResetPassword} exact />
+                    <ProtectedRoute path="/User/UpdateProfile" component={Update_UserProfile} exact />
+                    <ProtectedRoute path="/User/UpdatePassword" component={UpdatePassword} exact />
                     <Route path="/Product/UpdateExisting" component={Display_Products} exact />
                     <Route path="/Product/CreateNew" component={Create_Products} exact />
                     <Route path="/" component={HomePage_BodyContent} exact />

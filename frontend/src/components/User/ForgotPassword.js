@@ -23,14 +23,14 @@ const ForgotPassword = () => {
         }
     }, [dispatch, alert, error]);
 
-    const forgotPassword_Handler = (e) => {
+    const resetPassword_Handler = (e) => {
         e.preventDefault();
         dispatch(forgotUserPassword(email));
     }
 
     return (
         <div className="form-signin text-center">
-            <form onSubmit={forgotPassword_Handler}>
+            <form onSubmit={resetPassword_Handler}>
                 <h1 className="h3 mb-3 fw-normal">Reset Password</h1>
 
                 <label htmlFor="inputEmail" className="visually-hidden">Email address</label>
@@ -47,4 +47,4 @@ const ForgotPassword = () => {
     )
 }
 
-export default ForgotPassword
+export default ForgotPassword;

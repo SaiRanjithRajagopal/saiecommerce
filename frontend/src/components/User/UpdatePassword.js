@@ -1,68 +1,80 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useAlert } from 'react-alert';
 
-import Spinner from '../Loader/Spinner'
-import { updateUserPassword } from '../Redux_Thunk/Actions/UserAction'
+import Spinner from '../Loader/Spinner';
+import { updateUserPassword, logout_User } from '../Redux_Thunk/Actions/UserAction'
 
-const UpdatePassword = ({ match }) => {
-
-    console.log(match.params.link);
+const UpdatePassword = ({ history }) => {
 
     const dispatch = useDispatch();
-    const alert = useAlert();
-
-    const [password, setPassword] = useState('');
-    const [confirmPassword, setConfirmPassword] = useState('');
-
     const { loading, success } = useSelector(state => state.updatePassword);
 
-    useEffect(() => {
+    const [password, setPassword] = useState({
+        oldPassword: '',
+        newPassword: '',
+        confirmNewPassword: ''
+    });
 
-        if (success == false) {
-            return alert.error('Internal Server error');
+    const { oldPassword, newPassword, confirmNewPassword } = password;
+
+    const onChange_Handler = (e) => {
+        setPassword({ ...password, [e.target.name]: e.target.value });
+    };
+
+    const updatePassword_Handler = (e) => {
+        e.preventDefault()
+        if (password.newPassword === password.confirmNewPassword) {
+            dispatch(updateUserPassword(password.oldPassword, password.newPassword));
         }
-
-        dispatch(updateUserPassword(password, match.params.link));
-
-    }, [dispatch, alert, success]);
-
-    const updateNewPassword_Handler = (e) => {
-        e.preventDefault();
-        dispatch(updateUserPassword(password, match.params.link));
+        else {
+            console.log('password dont match')
+        }
+        //Add Validation Password not matched
     };
 
     return (
         <React.Fragment>
-            {loading ? <Spinner /> : (
-                <div className="form-signin text-center">
-                    <form onSubmit={updateNewPassword_Handler}>
-                        <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+            {loading ? <Spinner /> : (<div className="container" style={{ marginTop: 25 }}>
+                <form onSubmit={updatePassword_Handler}>
+                    <div className="row">
+                        <div className="col"></div>
+                        <div className="col-6">
+                            <h1 className="h3 mb-3 fw-normal">Update Password</h1>
 
-                        <label htmlFor="inputPassword" className="visually-hidden">Email address</label>
-                        <input type="text" id="inputPassword"
-                            className="form-control"
-                            placeholder="New Password" required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
+                            <input type="text"
+                                id="inputOldPassword"
+                                className="form-control"
+                                onChange={onChange_Handler}
+                                value={oldPassword}
+                                name="oldPassword"
+                                placeholder="oldPassword" required />
 
-                        <label htmlFor="inputConfirmPassword" className="visually-hidden">Password</label>
-                        <input type="text"
-                            id="inputConfirmPassword"
-                            className="form-control"
-                            onChange={(e) => setConfirmPassword(e.target.value)}
-                            value={confirmPassword}
-                            placeholder="Confirm New Password" required />
-                        <br />
-                        <br />
-                        <button className="btn btn-success" type="submit">Reset Password</button>
-                    </form>
-                    <br />
-                </div>
-            )}
+                            <input type="text"
+                                id="inputNewPassword"
+                                className="form-control"
+                                onChange={onChange_Handler}
+                                value={newPassword}
+                                name="newPassword"
+                                placeholder="New Password" required />
+
+                            <input type="text" id="inputConfirmNewPassword"
+                                className="form-control"
+                                placeholder="Confirm New Password" required
+                                value={confirmNewPassword}
+                                name="confirmNewPassword"
+                                onChange={onChange_Handler}
+                            />
+                            <br />
+                            <div style={{ textAlign: 'center' }}>
+                                <button className="btn btn-success" type="submit" disabled={loading ? true : false} style={{ marginRight: 20 }}>Update Profile</button>
+                            </div>
+                        </div>
+                        <div className="col"></div>
+                    </div>
+                </form>
+            </div>)}
         </React.Fragment>
     )
 }
 
-export default UpdatePassword;
+export default UpdatePassword

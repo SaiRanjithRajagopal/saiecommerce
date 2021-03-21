@@ -91,7 +91,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
     await user.save({ validateBeforeSave: false });
 
     //req.protocol is nothing but http or https
-    const resetURL = `${req.protocol}://${req.get(`host`)}/api/${process.env.API_VERSION}/user/resetPassword/${resetToken}`;
+    const resetURL = `${req.protocol}://${req.get(`host`)}/User/ResetPassword/${resetToken}`;
     console.log(resetURL);
 
     const message = `Your password reset token is as follow:\n\n${resetURL}\n\nIf you have not requested this email, then ignore it`;
@@ -120,6 +120,7 @@ exports.forgotPassword = catchAsyncError(async (req, res, next) => {
 exports.resetPassword = catchAsyncError(async (req, res, next) => {
     //Hash URL Token
     const resetPasswordToken = crypto.createHash('sha256').update(req.params.token).digest('hex');
+
     const user = await User.findOne({
         resetPasswordToken,
         resetPasswordExpire: { $gt: Date.now() }
@@ -156,26 +157,25 @@ exports.resetPassword = catchAsyncError(async (req, res, next) => {
     });
 });
 
-//Get Currently Logged in users
 exports.getUserProfile = catchAsyncError(async (req, res, next) => {
     const user = await User.findById(req.user.id);
     res.status(200).json({
         success: true,
         user
-    })
+    });
 });
 
-//Get Currently Logged in users
 exports.updatePassword = catchAsyncError(async (req, res, next) => {
+
     const user = await User.findById(req.user.id).select('+password');
 
     //Check previous user password
-    const isMatched = await user.ComparePassword(req.body.oldpassword);
+    const isMatched = await user.ComparePassword(req.body.oldPassword);
     if (!isMatched) {
         return next(new ErrorHandler('Old password is incorrect'));
     }
 
-    user.password = req.body.password;
+    user.password = req.body.newPassword;
     await user.save();
 
     //This will attach the Token and add cookie expiry time in the header
@@ -193,7 +193,6 @@ exports.updatePassword = catchAsyncError(async (req, res, next) => {
     });
 });
 
-//Get Currently Logged in users
 exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
     let result = undefined;
     const getUser = await User.findById(req.user.id);
@@ -209,6 +208,7 @@ exports.updateUserProfile = catchAsyncError(async (req, res, next) => {
     }
 
     if (req.body.avatar) {
+        const deletePrevious = await cloudinary.v2.uploader.destroy(getUser.avatar.public_id);
         result = await cloudinary.v2.uploader.upload(req.body.avatar);
     }
 

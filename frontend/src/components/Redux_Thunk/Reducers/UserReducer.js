@@ -120,7 +120,9 @@ export const updatePassword_Reducer = (state = { user: {} }, action) => {
         case UPDATE_PASSWORD_SUCCESS:
             return {
                 ...state,
-                loading: false
+                loading: false,
+                success: action.payload,
+                user: null
             }
 
         case UPDATE_PASSWORD_FAIL:
