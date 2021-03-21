@@ -22,6 +22,7 @@ import { loadUser } from '../Redux_Thunk/Actions/UserAction';
 import Update_UserProfile from '../User/Update_UserProfile'
 import ProtectedRoute from '../Route/ProtectedRoute'
 import UpdatePassword from '../User/UpdatePassword'
+import GetAllOrder from '../Orders/GetOrders'
 
 const MasterPage = () => {
 
@@ -50,6 +51,7 @@ const MasterPage = () => {
                     <Route path="/User/ResetPassword/:link" component={ResetPassword} exact />
                     <ProtectedRoute path="/User/UpdateProfile" component={Update_UserProfile} exact />
                     <ProtectedRoute path="/User/UpdatePassword" component={UpdatePassword} exact />
+                    <ProtectedRoute path="/AdminUser/GetAllOrders" component={GetAllOrder} exact />
                     <Route path="/Product/UpdateExisting" component={Display_Products} exact />
                     <Route path="/Product/CreateNew" component={Create_Products} exact />
                     <Route path="/" component={HomePage_BodyContent} exact />

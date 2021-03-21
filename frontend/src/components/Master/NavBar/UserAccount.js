@@ -29,7 +29,7 @@ const UserAccount = () => {
                         <Link to="/User/UpdateProfile" className="nav-link overrideCss_NavBar_DropDownMenu" style={{ color: 'black', 'textTransform': 'none' }}>My Profile</Link>
                         {
                             user && user.role !== 'admin' ?
-                                (<Link to="/" className="nav-link overrideCss_NavBar_DropDownMenu" style={{ color: 'black', 'textTransform': 'none' }}>Orders</Link>)
+                                (<Link to="/AdminUser/GetAllOrders" className="nav-link overrideCss_NavBar_DropDownMenu" style={{ color: 'black', 'textTransform': 'none' }}>Orders</Link>)
                                 : (<Link to="/" className="nav-link overrideCss_NavBar_DropDownMenu" style={{ color: 'black', 'textTransform': 'none' }}>DashBoard</Link>)
                         }
                         <Link to="/" onClick={userlogout}
